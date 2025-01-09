@@ -1,0 +1,31 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Poker3D"
+run/main_scene="res://main.tscn"
+config/features=PackedStringArray("4.3", "Mobile")
+config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=720
+window/size/viewport_height=540
+
+[layer_names]
+
+3d_physics/layer_1="Board"
+3d_physics/layer_2="Player"
+3d_physics/layer_3="Card"
+
+[rendering]
+
+renderer/rendering_method="mobile"

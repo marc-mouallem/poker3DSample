@@ -1,0 +1,14 @@
+RemoteTransform3D
+Node3D
+AnimationTree
+MeshInstance3D
+CollisionShape3D
+CharacterBody3D
+Timer
+PathFollow3D
+Path3D
+VisibleOnScreenNotifier3D
+DirectionalLight3D
+Camera3D
+Marker3D
+StaticBody3D

@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://bbylliuhih2vo"]
+[gd_scene load_steps=13 format=3 uid="uid://bbylliuhih2vo"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_4g5et"]
 [ext_resource type="PackedScene" uid="uid://bklyak805yc40" path="res://card.tscn" id="1_bc6vl"]
+[ext_resource type="Texture2D" uid="uid://bjki226suldru" path="res://assets/9999520.jpg" id="3_ku1hb"]
 [ext_resource type="PackedScene" uid="uid://dh5bstm3moq7n" path="res://player.tscn" id="3_rwwg0"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_71isk"]
@@ -11,14 +12,16 @@ bounce = 0.23
 absorbent = true
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mkjvc"]
-size = Vector3(1, 0, 1)
+size = Vector3(2, 0, 4)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0vhkl"]
-albedo_color = Color(0.142321, 0.442634, 0.268188, 1)
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_qpahb"]
+resource_local_to_scene = true
+albedo_texture = ExtResource("3_ku1hb")
 
-[sub_resource type="BoxMesh" id="BoxMesh_hftru"]
-material = SubResource("StandardMaterial3D_0vhkl")
-size = Vector3(3, 0, 6)
+[sub_resource type="QuadMesh" id="QuadMesh_14tjy"]
+material = SubResource("ORMMaterial3D_qpahb")
+size = Vector2(2, 5)
+orientation = 1
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_rerl8"]
 top_radius = 0.05
@@ -41,23 +44,22 @@ collision_mask = 4
 physics_material_override = SubResource("PhysicsMaterial_71isk")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, 0)
 shape = SubResource("BoxShape3D_mkjvc")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D/CollisionShape3D"]
-mesh = SubResource("BoxMesh_hftru")
+mesh = SubResource("QuadMesh_14tjy")
 
 [node name="CameraPivot" type="Marker3D" parent="."]
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot"]
-transform = Transform3D(1, 0, 0, 0, 0.813649, 0.581356, 0, -0.581356, 0.813649, 0, 0.552777, 0.672805)
+transform = Transform3D(-0.00274696, -0.78693, 0.617036, 0.00215386, 0.617032, 0.786935, -0.999994, 0.00349069, -2.69715e-08, 1.24138, 1.39108, -0.139467)
 fov = 60.0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.18136, 0.983417, 0, -0.983417, 0.18136, 0, 0.86697, 0)
 
 [node name="Dealer" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.547388)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.288981, 0.547388)
 mesh = SubResource("CylinderMesh_rerl8")
 skin = SubResource("Skin_2sydc")
 surface_material_override/0 = SubResource("StandardMaterial3D_swh05")
@@ -67,16 +69,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.547388)
 curve = SubResource("Curve3D_hh3i6")
 
 [node name="SpawnLocation" type="PathFollow3D" parent="Dealer/CardsPath"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.238042)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.826, 0.001, 0.12)
 
-[node name="DealingTimer" type="Timer" parent="."]
-wait_time = 0.5
-autostart = true
+[node name="Player1" parent="." groups=["Player"] instance=ExtResource("3_rwwg0")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, -0.979247, 0.0188529, 1.14249)
 
-[node name="Player" parent="." instance=ExtResource("3_rwwg0")]
-transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 1.08402, 0, -1.14434)
-
-[node name="Player2" parent="." instance=ExtResource("3_rwwg0")]
-transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0.117361, 0, -1.99396)
-
-[connection signal="timeout" from="DealingTimer" to="." method="_on_dealing_timer_timeout"]
+[node name="Player2" parent="." groups=["Player"] instance=ExtResource("3_rwwg0")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, -1.01539, 0.0141901, -1.61515)

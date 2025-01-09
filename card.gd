@@ -1,10 +1,10 @@
 extends CharacterBody3D
 
 
-@export var dealing_speed = 1.3
+@export var dealing_speed = 0.3
 
 func _physics_process(_delta):
-	move_and_slide()
+	move_and_collide(velocity)
 
 
 func initialize(start_position, player_position):
@@ -14,3 +14,7 @@ func initialize(start_position, player_position):
 
 func _on_visible_on_screen_notifier_3d_screen_exited():
 	queue_free()
+
+
+func _on_ready() -> void:
+	$CardSound.play()
